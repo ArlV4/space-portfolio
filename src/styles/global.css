@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@keyframes floatAstronaut {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(-3deg);
+  }
+}
+
+.animate-float {
+  animation: floatAstronaut 5s ease-in-out infinite;
+}

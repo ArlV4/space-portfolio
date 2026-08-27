@@ -1,0 +1,300 @@
+---
+---
+
+<section id="hero" class="hero-space">
+  <!-- 1. Background Video Fullscreen -->
+  <div class="video-bg-container">
+    <video autoplay loop muted playsinline class="video-bg">
+      <source src="/blackhole.mp4" type="video/mp4" />
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- 2. Konten Teks (Kiri) -->
+  <div class="hero-content">
+    <div class="badge">
+      <span class="pulse-dot"></span>
+      WEB DEVELOPER & CREATIVE DESIGNER
+    </div>
+
+    <h1 class="title">
+      Hi, I'm <span class="gradient-text">Aril</span>
+    </h1>
+
+    <p class="description">
+      Siswa SMKN 2 Magelang yang fokus mendalami web development, backend engineering, dan eksplorasi digital.
+    </p>
+
+    <div class="btn-group">
+      <a href="#skills" class="btn btn-primary">Lihat Skill</a>
+      <a href="#contact" class="btn btn-secondary">Hubungi Saya</a>
+    </div>
+  </div>
+
+  <!-- 3. Container Astronot (Menghadap Kiri & Scroll Gravitasi) -->
+  <div id="astronaut-gravity-zone" class="astronaut-floating-container">
+    <div id="astronaut-parallax-box" class="astronaut-inner-box">
+      <img src="/astronaut.png" alt="Astronaut" class="astronaut-img" />
+    </div>
+  </div>
+</section>
+
+<script>
+  const gravityZone = document.getElementById('astronaut-gravity-zone');
+  const parallaxBox = document.getElementById('astronaut-parallax-box');
+  const hero = document.getElementById('hero');
+
+  // 1. Animasi Tersedot ke Black Hole saat Scroll
+  window.addEventListener('scroll', () => {
+    if (!gravityZone || !hero) return;
+    
+    const scrollY = window.scrollY;
+    const heroHeight = hero.offsetHeight;
+    
+    // Progress scroll dari 0 (atas) ke 1 (habis hero section)
+    const progress = Math.min(Math.max(scrollY / (heroHeight * 0.8), 0), 1);
+
+    // Hitung perubahan visual: tersedot ke kiri-tengah, mengecil, memutar, dan memudar
+    const translateX = -progress * 350; // geser ke kiri menuju lubang hitam
+    const translateY = -progress * 80;  // sedikit naik ke orbit tengah
+    const scale = Math.max(1 - progress * 1.1, 0); // mengecil sampai 0
+    const rotate = -progress * 70; // efek terpuntir gravitasi
+    const opacity = Math.max(1 - progress * 1.3, 0); // hilang perlahan
+
+    gravityZone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(${rotate}deg)`;
+    gravityZone.style.opacity = opacity.toString();
+  });
+
+  // 2. Parallax Mouse Kursor
+  if (window.matchMedia('(pointer: fine)').matches) {
+    window.addEventListener('mousemove', (e) => {
+      if (!parallaxBox) return;
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      parallaxBox.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  }
+</script>
+
+<style>
+  .hero-space {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Video Fullscreen Background */
+  .video-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.85);
+  }
+
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 75% 50%, rgba(3, 7, 18, 0.15) 0%, rgba(3, 7, 18, 0.8) 70%, #030712 100%),
+                linear-gradient(to top, #030712 0%, transparent 20%);
+  }
+
+  /* Teks Konten */
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 580px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: fadeInIntro 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    width: fit-content;
+    border-radius: 9999px;
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    background: rgba(6, 182, 212, 0.12);
+    backdrop-filter: blur(8px);
+    color: #22d3ee;
+    font-size: 0.75rem;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #22d3ee;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #22d3ee;
+    animation: pulse 2s infinite;
+  }
+
+  .title {
+    font-size: 3.8rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .gradient-text {
+    background: linear-gradient(to right, #22d3ee, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .description {
+    color: #94a3b8;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn {
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+  }
+
+  .btn-primary {
+    background-color: #06b6d4;
+    color: #030712;
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.45);
+  }
+
+  .btn-primary:hover {
+    background-color: #22d3ee;
+    transform: translateY(-2px);
+    box-shadow: 0 0 35px rgba(6, 182, 212, 0.7);
+  }
+
+  .btn-secondary {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #cbd5e1;
+    backdrop-filter: blur(10px);
+  }
+
+  .btn-secondary:hover {
+    color: #ffffff;
+    border-color: #06b6d4;
+  }
+
+  /* Container Gravitasi Astronot */
+  .astronaut-floating-container {
+    position: relative;
+    z-index: 10;
+    width: 380px;
+    max-width: 35vw;
+    pointer-events: none;
+    will-change: transform, opacity;
+    transition: transform 0.1s linear, opacity 0.1s linear;
+    animation: astronautEntrance 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Inner Box untuk Levitasi Zero-G & Parallax */
+  .astronaut-inner-box {
+    width: 100%;
+    height: 100%;
+    animation: floatZeroG 6s ease-in-out infinite;
+    transition: transform 0.15s ease-out;
+  }
+
+  /* Balik Posisi Gambar Astronot Menghadap Kiri */
+  .astronaut-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform: scaleX(-1); /* Flip horizontal ke kiri */
+    filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.85));
+  }
+
+  /* Keyframe Animations */
+  @keyframes floatZeroG {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-24px) rotate(-3deg);
+    }
+  }
+
+  @keyframes astronautEntrance {
+    0% {
+      opacity: 0;
+      transform: scale(0.6) translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0px);
+    }
+  }
+
+  @keyframes fadeInIntro {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  @media (max-width: 900px) {
+    .hero-space {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 6% 60px;
+    }
+    .hero-content {
+      align-items: center;
+    }
+    .astronaut-floating-container {
+      width: 240px;
+      max-width: 60vw;
+      margin-top: 2rem;
+    }
+    .title {
+      font-size: 2.7rem;
+    }
+  }
+</style>

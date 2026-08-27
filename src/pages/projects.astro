@@ -1,0 +1,764 @@
+---
+import CustomCursor from '../components/CustomCursor.astro';
+
+const allProjects = [
+  // ================= 1. KREDENSIAL RESMI CREDLY =================
+  {
+    title: "AI Literacy",
+    category: "cert",
+    categoryLabel: "Official Certification",
+    toolsLabel: "Issuer / Platform",
+    tools: ["IBM SkillsBuild", "Credly", "AI Fundamentals"],
+    img: "https://images.credly.com/images/1bd82b44-b35d-4eae-be43-260efbf1b6d6/blob.png",
+    desc: "Pemahaman fundamental konsep kecerdasan buatan, machine learning, etika AI, dan penerapannya.",
+    fullDesc: "Kredensial resmi dari IBM SkillsBuild yang memvalidasi literasi kecerdasan buatan, mencakup konsep dasar AI, pemahaman data, neural network, serta implikasi etis penggunaan AI dalam dunia industri.",
+    videoUrl: "",
+    credlyUrl: "https://www.credly.com/badges/1bd82b44-b35d-4eae-be43-260efbf1b6d6",
+    isBadge: true
+  },
+ {
+    title: "Create Your First Gemini Enterprise Application",
+    category: "cert",
+    categoryLabel: "Official Skill Badge",
+    toolsLabel: "Issuer / Platform",
+    tools: ["Google Cloud", "Gemini AI", "Enterprise App"],
+    img: "/projects/gemini.png", 
+    desc: "Skill badge Google Cloud dalam merancang dan mengintegrasikan model Gemini ke solusi aplikasi enterprise.",
+    fullDesc: "Sertifikasi keahlian terverifikasi Google Cloud yang mendemonstrasikan kemampuan praktis dalam memanfaatkan API Gemini AI, prompt engineering tingkat lanjut, dan arsitektur aplikasi berbasis LLM pada ekosistem cloud.",
+    videoUrl: "",
+    credlyUrl: "https://www.credly.com/badges/c1dd7c44-80e5-4ab0-97bb-85334f8d092e",
+    isBadge: true
+  },
+  {
+    title: "Develop with Apps Script and AppSheet Skill Badge",
+    category: "cert",
+    categoryLabel: "Official Skill Badge",
+    toolsLabel: "Issuer / Platform",
+    tools: ["Google Cloud", "Apps Script", "AppSheet"],
+    img: "https://images.credly.com/images/e4f202a9-ffba-404a-918a-d0f76cb83d6c/blob.png",
+    desc: "Otomasi alur kerja dan pembuatan aplikasi bisnis kustom menggunakan Google Apps Script & AppSheet.",
+    fullDesc: "Validasi keahlian praktis dalam membangun aplikasi produktivitas bisnis no-code/low-code dengan Google AppSheet serta mengotomasi logika sistem dan integrasi Google Workspace menggunakan Apps Script.",
+    videoUrl: "",
+    credlyUrl: "https://www.credly.com/badges/e4f202a9-ffba-404a-918a-d0f76cb83d6c",
+    isBadge: true
+  },
+  {
+    title: "Digital Mindset",
+    category: "cert",
+    categoryLabel: "Official Certification",
+    toolsLabel: "Issuer / Platform",
+    tools: ["IBM SkillsBuild", "Credly", "Digital Transformation"],
+    img: "https://images.credly.com/images/2257ab1c-a0e8-428f-b621-4e6faa5e532e/blob.png",
+    desc: "Kompetensi pola pikir adaptif terhadap transformasi digital, kolaborasi era modern, dan inovasi teknologi.",
+    fullDesc: "Sertifikasi dari IBM SkillsBuild mengenai kapabilitas berpikir kritis dan adaptif dalam menghadapi era disrupsi teknologi, pemecahan masalah digital, dan kolaborasi tim tangkas.",
+    videoUrl: "",
+    credlyUrl: "https://www.credly.com/badges/2257ab1c-a0e8-428f-b621-4e6faa5e532e",
+    isBadge: true
+  },
+  {
+    title: "Implement CI/CD Pipelines on Google Cloud Skill Badge",
+    category: "cert",
+    categoryLabel: "Official Skill Badge",
+    toolsLabel: "Issuer / Platform",
+    tools: ["Google Cloud", "CI/CD", "DevOps"],
+    img: "https://images.credly.com/images/01b9814b-3f91-4a01-a7bc-9b67f2411f32/blob.png",
+    desc: "Implementasi alur continuous integration & continuous deployment otomatis menggunakan Google Cloud Build.",
+    fullDesc: "Kredensial tingkat menengah (intermediate) dari Google Cloud yang memvalidasi kompetensi praktis dalam mengonfigurasi pipeline CI/CD otomatis, artifact management, deployment otomatisasi, dan monitoring berbasis cloud.",
+    videoUrl: "",
+    credlyUrl: "https://www.credly.com/badges/01b9814b-3f91-4a01-a7bc-9b67f2411f32",
+    isBadge: true
+  },
+
+  // ================= 2. VIDEO EDITING =================
+  {
+    title: "Cinematic Dokumentasi PTA (Penerimaan Tamu Ambalan)",
+    category: "video",
+    categoryLabel: "Video Editing",
+    toolsLabel: "Software",
+    tools: ["DaVinci Resolve", "Videography", "Color Grading"],
+    img: "/projects/video-pta.jpeg",
+    desc: "Dokumentasi kegiatan lapangan bernuansa monokrom vintage dengan ritme transisi tajam dan tata suara dinamis.",
+    fullDesc: "Produksi dan pasca-produksi video dokumentasi kegiatan Pramuka (PTA). Menggunakan DaVinci Resolve untuk koreksi warna monokrom bertekstur sinematik, penyesuaian speed-ramping pada timeline, dan sinkronisasi audio ritmik.",
+    videoUrl: "https://www.instagram.com/reel/DcGrNF3J0fL/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+    credlyUrl: "",
+    isBadge: false
+  },
+
+  // ================= 3. PROGRAMMING / WEB DEV =================
+  {
+    title: "Sistem Manajemen Perpustakaan Digital - Admin Panel",
+    category: "code",
+    categoryLabel: "Web Application",
+    toolsLabel: "Tech Stack",
+    tools: ["PHP Native", "Bootstrap", "Chart.js", "MySQL"],
+    img: "/projects/web-perpus-admin.png",
+    desc: "Dashboard analitik admin dengan visualisasi ringkasan status buku, statistik peminjaman, dan kontrol denda.",
+    fullDesc: "Dibangun menggunakan arsitektur modular PHP Native dan MySQL. Menampilkan ringkasan data interaktif menggunakan Chart.js (status peminjaman & kategori buku), manajemen denda otomatis, kelola user, dan cetak laporan.",
+    videoUrl: "",
+    credlyUrl: "",
+    isBadge: false
+  },
+  {
+    title: "Katalog & Beranda Buku Perpustakaan Digital",
+    category: "code",
+    categoryLabel: "Web Application",
+    toolsLabel: "Tech Stack",
+    tools: ["PHP Native", "Bootstrap", "MySQL", "JavaScript"],
+    img: "/projects/web-perpus-user.png",
+    desc: "Antarmuka penjelajahan katalog buku daring yang bersih, responsif, dan mudah diakses oleh siswa.",
+    fullDesc: "Portal utama bagi anggota perpustakaan untuk mengecek ketersediaan buku, melihat detail deskripsi buku terbaru, dan melakukan reservasi peminjaman digital secara mandiri.",
+    videoUrl: "",
+    credlyUrl: "",
+    isBadge: false
+  },
+
+  // ================= 4. DESAIN KAJIAN & KEISLAMAN =================
+  {
+    title: "Poster Safari Dakwah - Spesial Maulid",
+    category: "design",
+    categoryLabel: "Graphic Design",
+    toolsLabel: "Software",
+    tools: ["Canva", "Typography", "Visual Branding"],
+    img: "/projects/safari-dakwah.png",
+    desc: "Poster publikasi kajian keislaman dengan tipografi tebal kontras dan penataan layout arsitektural kubah.",
+    fullDesc: "Desain visual media sosial dan cetak untuk agenda Safari Dakwah Rohis SMKN 2 Magelang. Mengutamakan hierarki tipografi tegas, elemen arsitektur masjid 3D, serta perpaduan palet merah-putih elegan.",
+    videoUrl: "",
+    credlyUrl: "",
+    isBadge: false
+  },
+  {
+    title: "Poster Ramadhan Transformation",
+    category: "design",
+    categoryLabel: "Graphic Design",
+    toolsLabel: "Software",
+    tools: ["Canva", "Digital Illustration", "Layout"],
+    img: "/projects/ramadhan-event.png",
+    desc: "Desain poster kegiatan lomba Ramadhan bernuansa ungu mistis dengan ilustrasi karakter Islami.",
+    fullDesc: "Visual materi promosi lomba lagu religi, pidato Islami, LCC, dan kaligrafi. Memadukan ilustrasi vektor bubble bertema islami dengan latar belakang masjid malam berbintang.",
+    videoUrl: "",
+    credlyUrl: "",
+    isBadge: false
+  },
+
+  // ================= 5. DESAIN KOMERSIAL / F&B =================
+  {
+    title: "Menu Komersial Warung Bu Tris (Daftar Harga)",
+    category: "design",
+    categoryLabel: "Commercial / Branding",
+    toolsLabel: "Software",
+    tools: ["Canva", "Food Photography Layout"],
+    img: "/projects/menu-warung-butris.png",
+    desc: "Daftar menu vertikal bertema merah tradisional dengan penataan kartu harga yang terstruktur.",
+    fullDesc: "Desain daftar menu komersial cetak dan digital untuk gerai makanan Soto & Bakso Gong. Memprioritaskan keterbacaan harga, penonjolan foto menu utama, dan integrasi ikon kurir pesan-antar.",
+    videoUrl: "",
+    credlyUrl: "",
+    isBadge: false
+  },
+  {
+    title: "Spanduk / X-Banner Warung Bu Tris",
+    category: "design",
+    categoryLabel: "Commercial / Branding",
+    toolsLabel: "Software",
+    tools: ["Canva", "Banner Composition"],
+    img: "/projects/banner-warung-butris.png",
+    desc: "Banner promosi lanskap beresolusi tinggi dengan tipografi display retro yang menggugah selera.",
+    fullDesc: "Banner promosi luar ruang (outdoor banner) dengan komposisi headline besar, penempatan foto hidangan soto segar dan bakso, serta badge harga yang jelas.",
+    videoUrl: "",
+    credlyUrl: "",
+    isBadge: false
+  },
+  {
+    title: "Daftar Menu Minimalis - Cookies Raya Eid Fitri",
+    category: "design",
+    categoryLabel: "Commercial / Branding",
+    toolsLabel: "Software",
+    tools: ["Canva", "Minimalist Layout"],
+    img: "/projects/menu-cookies.png",
+    desc: "Katalog menu kue kering lebaran bernuansa krem pastel dengan estetika bersih dan elegan.",
+    fullDesc: "Desain promosi produk pastry musiman (Reins Patisserie). Mengusung konsep minimalis, layout rapi dengan bayangan realistis pada toples kue, dan tipografi serif yang anggun.",
+    videoUrl: "",
+    credlyUrl: "",
+    isBadge: false
+  },
+
+  // ================= 6. POSTER & INFOGRAFIK =================
+  {
+    title: "Poster Ilustrasi Peringatan Hari Pramuka",
+    category: "design",
+    categoryLabel: "Illustration / Poster",
+    toolsLabel: "Software",
+    tools: ["Canva", "Character Illustration", "Vector Art"],
+    img: "/projects/poster-pramuka.png",
+    desc: "Poster tematik Hari Pramuka dengan karakter kartun pramuka yang ceria dan hangat di sekitar api unggun.",
+    fullDesc: "Desain visual ucapan peringatan resmi untuk media sosial SMKN 2 Magelang. Menggunakan elemen ilustrasi pramuka penegak dan penggalang, nuansa alam terbuka, serta tipografi kartun dinamis.",
+    videoUrl: "",
+    credlyUrl: "",
+    isBadge: false
+  },
+  {
+    title: "Infografik: Inovasi Teknologi di Pendidikan",
+    category: "design",
+    categoryLabel: "Infographic / Editorial",
+    toolsLabel: "Software",
+    tools: ["Canva", "Data Visualization", "Editorial Design"],
+    img: "/projects/infografik-teknologi.png",
+    desc: "Infografik edukatif terstruktur yang memuat data statistik literasi digital, mitos & fakta, serta akronim UNIK.",
+    fullDesc: "Karya desain infografik komprehensif untuk kompetisi UNIMMA. Menyajikan visualisasi data statistik persentase, pemecahan mitos vs fakta teknologi, serta penjabaran nilai edukatif secara runtut.",
+    videoUrl: "",
+    credlyUrl: "",
+    isBadge: false
+  }
+];
+---
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karya & Portfolio Lengkap | Aril</title>
+    <style is:global>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background-color: #030712; color: #fff; font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden; }
+    </style>
+  </head>
+  <body>
+    <CustomCursor />
+
+    <main class="vault-container">
+      <div class="header-nav">
+        <a href="/" class="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Kembali ke Beranda
+        </a>
+      </div>
+
+      <div class="vault-header">
+        <span class="vault-badge">SHOWCASE VAULT</span>
+        <h1 class="vault-title">Galeri Karya, Desain & <span class="cyan-text">Sertifikat</span></h1>
+        <p class="vault-sub">Kumpulan proyek pengembangan sistem web, dokumentasi video sinematik, artwork grafis, dan sertifikasi kredensial resmi.</p>
+
+        <!-- Filter Tab -->
+        <div class="filter-tabs">
+          <button class="tab-btn active" data-filter="all">Semua ({allProjects.length})</button>
+          <button class="tab-btn" data-filter="cert">Sertifikat Credly</button>
+          <button class="tab-btn" data-filter="code">Web Dev</button>
+          <button class="tab-btn" data-filter="video">Video Editing</button>
+          <button class="tab-btn" data-filter="design">Desain & Poster</button>
+        </div>
+      </div>
+
+      <!-- Grid 3 Kolom Kartu Galeri -->
+      <div class="vault-grid">
+        {allProjects.map(item => (
+          <div 
+            class="project-card" 
+            data-category={item.category}
+            data-title={item.title}
+            data-categorylabel={item.categoryLabel}
+            data-toolslabel={item.toolsLabel}
+            data-tools={JSON.stringify(item.tools)}
+            data-desc={item.fullDesc}
+            data-img={item.img}
+            data-videourl={item.videoUrl}
+            data-credlyurl={item.credlyUrl}
+          >
+            <!-- Thumbnail Visual Sebelum Diklik -->
+            <div class={`card-thumb-wrap ${item.isBadge ? 'badge-thumb-bg' : ''}`}>
+              <img src={item.img} alt={item.title} class={`card-thumb ${item.isBadge ? 'badge-img' : ''}`} loading="lazy" />
+              <span class="card-badge-floating">{item.categoryLabel}</span>
+            </div>
+
+            <!-- Konten Kartu -->
+            <div class="card-content">
+              <h3 class="card-title">{item.title}</h3>
+              <p class="card-desc">{item.desc}</p>
+              
+              <div class="card-footer">
+                <div class="tag-row">
+                  {item.tools.slice(0, 2).map(t => <span class="tag-pill">{t}</span>)}
+                  {item.tools.length > 2 && <span class="tag-pill">+{item.tools.length - 2}</span>}
+                </div>
+                <div class="card-arrow">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </main>
+
+    <!-- Modal Popup Detail Proyek & Sertifikat -->
+    <div id="project-modal" class="modal-overlay">
+      <div class="modal-content">
+        <button id="modal-close" class="modal-close-btn">&times;</button>
+        
+        <div class="modal-img-wrap">
+          <img id="modal-img" src="" alt="Preview Proyek" />
+        </div>
+
+        <div class="modal-body">
+          <div class="modal-meta-row">
+            <span id="modal-cat" class="modal-badge">Kategori</span>
+          </div>
+
+          <h3 id="modal-title">Judul Proyek</h3>
+          <p id="modal-desc">Deskripsi lengkap proyek.</p>
+
+          <div class="modal-tools-section">
+            <span id="modal-tools-label" class="tools-heading">Software:</span>
+            <div id="modal-tools-container" class="tools-pills-row"></div>
+          </div>
+
+          <!-- Tombol Tonton Reels jika video -->
+          <div id="modal-action-row" class="modal-action-row" style="display: none;">
+            <a id="modal-video-link" href="#" target="_blank" class="video-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Tonton Video Dokumentasi (Instagram)
+            </a>
+          </div>
+
+          <!-- Tombol Verifikasi Credly jika sertifikat -->
+          <div id="modal-credly-row" class="modal-action-row" style="display: none;">
+            <a id="modal-credly-link" href="#" target="_blank" class="credly-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+              Verifikasi Kredensial Resmi di Credly
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Filter Logic
+      const filterBtns = document.querySelectorAll('.tab-btn');
+      const cards = document.querySelectorAll('.project-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filterValue = btn.getAttribute('data-filter');
+
+          cards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (filterValue === 'all' || filterValue === cardCategory) {
+              (card as HTMLElement).style.display = 'flex';
+            } else {
+              (card as HTMLElement).style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Modal Logic
+      const modal = document.getElementById('project-modal');
+      const closeBtn = document.getElementById('modal-close');
+      const modalImg = document.getElementById('modal-img') as HTMLImageElement;
+      const modalCat = document.getElementById('modal-cat');
+      const modalTitle = document.getElementById('modal-title');
+      const modalDesc = document.getElementById('modal-desc');
+      const modalToolsLabel = document.getElementById('modal-tools-label');
+      const modalToolsContainer = document.getElementById('modal-tools-container');
+      const modalActionRow = document.getElementById('modal-action-row');
+      const modalVideoLink = document.getElementById('modal-video-link') as HTMLAnchorElement;
+      const modalCredlyRow = document.getElementById('modal-credly-row');
+      const modalCredlyLink = document.getElementById('modal-credly-link') as HTMLAnchorElement;
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          if (!modal) return;
+          const title = card.getAttribute('data-title') || '';
+          const catLabel = card.getAttribute('data-categorylabel') || '';
+          const toolsLabel = card.getAttribute('data-toolslabel') || 'Tools';
+          const tools = JSON.parse(card.getAttribute('data-tools') || '[]');
+          const desc = card.getAttribute('data-desc') || '';
+          const img = card.getAttribute('data-img') || '';
+          const videoUrl = card.getAttribute('data-videourl') || '';
+          const credlyUrl = card.getAttribute('data-credlyurl') || '';
+
+          if (modalTitle) modalTitle.textContent = title;
+          if (modalCat) modalCat.textContent = catLabel;
+          if (modalDesc) modalDesc.textContent = desc;
+          if (modalImg) modalImg.src = img;
+          if (modalToolsLabel) modalToolsLabel.textContent = `${toolsLabel}:`;
+
+          if (modalToolsContainer) {
+            modalToolsContainer.innerHTML = '';
+            tools.forEach((t: string) => {
+              const span = document.createElement('span');
+              span.className = 'tool-item';
+              span.textContent = t;
+              modalToolsContainer.appendChild(span);
+            });
+          }
+
+          // Handle Video Link
+          if (videoUrl && modalActionRow && modalVideoLink) {
+            modalActionRow.style.display = 'block';
+            modalVideoLink.href = videoUrl;
+          } else if (modalActionRow) {
+            modalActionRow.style.display = 'none';
+          }
+
+          // Handle Credly Link
+          if (credlyUrl && modalCredlyRow && modalCredlyLink) {
+            modalCredlyRow.style.display = 'block';
+            modalCredlyLink.href = credlyUrl;
+          } else if (modalCredlyRow) {
+            modalCredlyRow.style.display = 'none';
+          }
+
+          modal.classList.add('active');
+        });
+      });
+
+      closeBtn?.addEventListener('click', () => modal?.classList.remove('active'));
+      modal?.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+    </script>
+
+    <style>
+      .vault-container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 6rem;
+      }
+      .header-nav { margin-bottom: 2.5rem; }
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #94a3b8;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+      .back-btn:hover { color: #22d3ee; }
+
+      .vault-header { text-align: center; max-width: 750px; margin: 0 auto 3rem; }
+      .vault-badge {
+        font-family: monospace;
+        font-size: 0.75rem;
+        color: #22d3ee;
+        background: rgba(6, 182, 212, 0.1);
+        border: 1px solid rgba(6, 182, 212, 0.3);
+        padding: 4px 12px;
+        border-radius: 9999px;
+      }
+      .vault-title { font-size: 2.5rem; font-weight: 800; margin: 1rem 0 0.6rem; }
+      .cyan-text { color: #22d3ee; }
+      .vault-sub { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
+
+      /* Filter Tabs */
+      .filter-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 1.8rem;
+      }
+      .tab-btn {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #94a3b8;
+        padding: 8px 18px;
+        border-radius: 9999px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .tab-btn.active, .tab-btn:hover {
+        background: #06b6d4;
+        color: #030712;
+        border-color: #06b6d4;
+        font-weight: 700;
+      }
+
+      /* Grid 3 Kolom */
+      .vault-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        background: rgba(15, 23, 42, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(8px);
+      }
+
+      .project-card:hover {
+        transform: translateY(-6px);
+        border-color: #22d3ee;
+        box-shadow: 0 12px 30px rgba(6, 182, 212, 0.2);
+      }
+
+      /* Thumbnail Card */
+      .card-thumb-wrap {
+        position: relative;
+        width: 100%;
+        height: 190px;
+        background: #050b14;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card-thumb {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+
+      .project-card:hover .card-thumb {
+        transform: scale(1.05);
+      }
+
+      /* Khusus Badge Credly */
+      .badge-thumb-bg {
+        background: radial-gradient(circle at center, #0f172a 0%, #030712 100%);
+        padding: 1.5rem;
+      }
+      .badge-img {
+        width: auto !important;
+        height: 100% !important;
+        object-fit: contain !important;
+      }
+
+      .card-badge-floating {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 0.68rem;
+        font-family: monospace;
+        color: #22d3ee;
+        background: rgba(3, 7, 18, 0.8);
+        border: 1px solid rgba(34, 211, 238, 0.35);
+        backdrop-filter: blur(6px);
+        padding: 3px 8px;
+        border-radius: 9999px;
+      }
+
+      /* Content Card */
+      .card-content {
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-between;
+      }
+
+      .card-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #f8fafc;
+        margin-bottom: 0.4rem;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .card-desc {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding-top: 0.75rem;
+      }
+
+      .tag-row {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+      }
+
+      .tag-pill {
+        font-size: 0.7rem;
+        color: #94a3b8;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2px 7px;
+        border-radius: 4px;
+      }
+
+      .card-arrow {
+        color: #64748b;
+        transition: color 0.2s, transform 0.2s;
+      }
+
+      .project-card:hover .card-arrow {
+        color: #22d3ee;
+        transform: translate(2px, -2px);
+      }
+
+      /* ================= MODAL DETAIL ================= */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(3, 7, 18, 0.85);
+        backdrop-filter: blur(10px);
+        z-index: 10001;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+
+      .modal-overlay.active { display: flex; }
+
+      .modal-content {
+        background: #0f172a;
+        border: 1px solid rgba(34, 211, 238, 0.3);
+        border-radius: 18px;
+        max-width: 580px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+        animation: modalFadeIn 0.25s ease-out;
+      }
+
+      @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.96); }
+        to { opacity: 1; transform: scale(1); }
+      }
+
+      .modal-close-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(3, 7, 18, 0.7);
+        color: #fff;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        font-size: 1.4rem;
+        cursor: pointer;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-close-btn:hover { background: #f43f5e; }
+
+      .modal-img-wrap {
+        width: 100%;
+        max-height: 300px;
+        background: #030712;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding: 1.25rem 0;
+      }
+      .modal-img-wrap img {
+        width: 100%;
+        max-height: 260px;
+        object-fit: contain;
+      }
+
+      .modal-body { padding: 1.5rem; }
+      .modal-badge {
+        font-size: 0.75rem;
+        font-family: monospace;
+        color: #22d3ee;
+        background: rgba(6, 182, 212, 0.12);
+        border: 1px solid rgba(6, 182, 212, 0.3);
+        padding: 3px 10px;
+        border-radius: 9999px;
+      }
+
+      .modal-body h3 { font-size: 1.25rem; color: #f8fafc; margin: 0.8rem 0 0.5rem; }
+      .modal-body p { font-size: 0.92rem; color: #94a3b8; line-height: 1.6; margin-bottom: 1.2rem; }
+
+      .modal-tools-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 1rem;
+      }
+
+      .tools-heading { font-size: 0.85rem; color: #cbd5e1; font-weight: 600; }
+      .tools-pills-row { display: flex; gap: 6px; flex-wrap: wrap; }
+      .tool-item {
+        font-size: 0.75rem;
+        color: #22d3ee;
+        background: rgba(34, 211, 238, 0.08);
+        border: 1px solid rgba(34, 211, 238, 0.25);
+        padding: 3px 8px;
+        border-radius: 6px;
+      }
+
+      .modal-action-row { margin-top: 1.2rem; }
+      .video-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: transform 0.2s;
+      }
+      .video-btn:hover { transform: translateY(-2px); }
+
+      .credly-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 18px;
+        border-radius: 8px;
+        background: #ff6b00;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.35);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .credly-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px rgba(255, 107, 0, 0.6);
+      }
+
+      /* Responsiveness */
+      @media (max-width: 1024px) {
+        .vault-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 640px) {
+        .vault-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+---
+import Hero from '../components/Hero.astro';
+import MainContent from '../components/MainContent.astro';
+import CustomCursor from '../components/CustomCursor.astro';
+import Navbar from '../components/Navbar.astro';
+---
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My | Portfolio Junior Developer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <style is:global>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-color: #030712;
+        font-family: system-ui, -apple-system, sans-serif;
+        color: #fff;
+        overflow-x: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Kursor Kustom -->
+    <CustomCursor />
+
+    <!-- Floating Capsule Navbar dengan Animasi Show Up -->
+    <Navbar />
+
+    <main>
+      <Hero />
+      <MainContent />
+    </main>
+  </body>
+</html>

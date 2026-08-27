@@ -1,0 +1,163 @@
+---
+---
+
+<!-- 1. Pointer Utama -->
+<div id="cursor-pointer" class="cursor-pointer">
+  <img src="/cursor-pointer.png" alt="Pointer" class="pointer-img" />
+</div>
+
+<!-- 2. Mini Astronaut Companion -->
+<div id="cursor-companion" class="cursor-companion">
+  <div class="companion-anim-box">
+    <img src="/cursor-astronaut.png" alt="Mini Astronaut Companion" class="companion-img" />
+  </div>
+</div>
+
+<script>
+  const pointer = document.getElementById('cursor-pointer');
+  const companion = document.getElementById('cursor-companion');
+  const companionBox = companion?.querySelector('.companion-anim-box');
+  const pointerImg = pointer?.querySelector('.pointer-img');
+
+  let mouseX = -100;
+  let mouseY = -100;
+  let compX = -100;
+  let compY = -100;
+
+  if (window.matchMedia('(pointer: fine)').matches) {
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // Pointer menempel presisi di ujung klik kursor (0 offset)
+      if (pointer) {
+        pointer.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      }
+    });
+
+    const render = () => {
+      // Jarak offset astronot menempel pas di sebelah kanan-bawah kursor
+      const targetX = mouseX + 18;
+      const targetY = mouseY + 14;
+
+      compX += (targetX - compX) * 0.15;
+      compY += (targetY - compY) * 0.15;
+
+      if (companion) {
+        companion.style.transform = `translate3d(${compX}px, ${compY}px, 0)`;
+      }
+
+      requestAnimationFrame(render);
+    };
+    requestAnimationFrame(render);
+
+    // Interaksi Hover tombol/link (animasi diterapkan ke child element agar koordinat JS tidak tertimpa)
+    const interactives = document.querySelectorAll('a, button, input, textarea, .tech-pill, .skill-card, .btn');
+    interactives.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        companionBox?.classList.add('companion-hover');
+        pointerImg?.classList.add('pointer-hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        companionBox?.classList.remove('companion-hover');
+        pointerImg?.classList.remove('pointer-hover');
+      });
+    });
+
+    // Interaksi Klik Mouse
+    window.addEventListener('mousedown', () => {
+      companionBox?.classList.add('companion-click');
+    });
+    window.addEventListener('mouseup', () => {
+      companionBox?.classList.remove('companion-click');
+    });
+  }
+</script>
+
+<style>
+  /* Matikan kursor default browser */
+  @media (pointer: fine) {
+    :global(html), :global(body), :global(a), :global(button), :global(input), :global(textarea) {
+      cursor: none !important;
+    }
+  }
+
+  /* Pointer Utama (Ukuran ideal: 32px) */
+  .cursor-pointer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    z-index: 999999;
+    will-change: transform;
+    /* Ujung panah kursor pas di koordinat (0, 0) */
+    transform-origin: top left;
+  }
+
+  .pointer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.7));
+    transition: transform 0.15s ease-out;
+  }
+
+  .pointer-img.pointer-hover {
+    transform: scale(1.15);
+  }
+
+  /* Mini Astronaut Companion (Ukuran ideal: 40px) */
+  .cursor-companion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    z-index: 999998;
+    will-change: transform;
+  }
+
+  .companion-anim-box {
+    width: 100%;
+    height: 100%;
+    animation: companionFloat 2.5s ease-in-out infinite;
+    transition: transform 0.18s ease-out;
+  }
+
+  .companion-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.45));
+  }
+
+  /* Hover Reaction */
+  .companion-anim-box.companion-hover {
+    transform: scale(1.25) rotate(12deg);
+  }
+
+  /* Click Reaction */
+  .companion-anim-box.companion-click {
+    transform: scale(0.85);
+  }
+
+  @keyframes companionFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  /* Nonaktifkan kursor custom di perangkat layar sentuh/HP */
+  @media (pointer: coarse) {
+    .cursor-pointer,
+    .cursor-companion {
+      display: none;
+    }
+  }
+</style>
