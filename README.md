@@ -30,7 +30,7 @@ Website portfolio interaktif bertema luar angkasa (*Space Theme*) dengan estetik
 | **Styling & Icons** | CSS3 / Scoped Styles, Glassmorphism, [Devicon](https://devicon.dev) |
 | **Language** | TypeScript, HTML5 |
 | **Integrations** | Web3Forms API |
-| **Media & Design** | DaVinci Resolve, Adobe After Effect, Canva |
+| **Media & Design** | DaVinci Resolve, Canva, Capcut |
 
 ---
 
